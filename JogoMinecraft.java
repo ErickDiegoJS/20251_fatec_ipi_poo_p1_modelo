@@ -6,23 +6,28 @@ public class JogoMinecraft {
 
         var gerador = new Random();
 
-        while(true){
+        while (true) {
+            if (gerador.nextInt(4) == 0) {
+                alex.levarDano();
+                if (!alex.estaVivo()) {
+                    System.out.println("GAME OVER");
+                    return;
+                }
+            }
             switch (gerador.nextInt(3)) {
                 case 0:
                     alex.minerar();
-                    System.out.println(alex.toString());
                     break;
                 case 1:
                     alex.coletarMadeira();
-                    System.out.println(alex.toString());
                     break;
                 case 2:
                     alex.construir();
-                    System.out.println(alex.toString());
                     break;
                 default:
                     break;
             }
+            System.out.println(alex.toString());
             System.out.println("\n============\n");
             Thread.sleep(5000);
         }
