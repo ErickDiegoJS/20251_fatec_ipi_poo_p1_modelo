@@ -6,8 +6,19 @@ public class JogoMinecraft {
         var steve = new JogadorMinecraft("Steve Construtor");
 
         var gerador = new Random();
-
+        boolean vitoriaAnunciada = false;
         while (true) {
+            if(steve.estaVivo() && alex.estaVivo()){
+                if(gerador.nextBoolean()){
+                    System.out.println("Steve atacou Alex");
+                    alex.levarDano();
+                }
+                else{
+                    System.out.println("Alex atacou Steve");
+                    steve.levarDano();
+                }
+            }
+
             if (alex.estaVivo()) {
                 tomarAcaoAleatoria(gerador, alex, new int[] { 1, 1, 1 });
                 if (gerador.nextInt(4) == 0) {
@@ -22,7 +33,16 @@ public class JogoMinecraft {
                 }
                 System.out.println(steve.toString());
             }
-            if (!steve.estaVivo() && !alex.estaVivo()) {
+
+            if(!steve.estaVivo() && alex.estaVivo() && !vitoriaAnunciada){
+                System.out.println("Alex venceu");
+                vitoriaAnunciada = true;
+            } else if (steve.estaVivo() && !alex.estaVivo() && !vitoriaAnunciada){
+                System.out.println("Steve venceu");
+                vitoriaAnunciada = true;
+            }
+
+            if(!steve.estaVivo() && !alex.estaVivo()){
                 System.out.println("GAME OVER");
                 return;
             }
@@ -38,12 +58,12 @@ public class JogoMinecraft {
             total += pesos[i];
         }
 
-        int valorSoteado = gerador.nextInt(total);
-        if (valorSoteado < pesos[0]) {
+        int valorSorteado = gerador.nextInt(total);
+        if (valorSorteado < pesos[0]) {
             jogador.minerar();
-        } else if (valorSoteado < pesos[0] + pesos[1]) {
+        } else if (valorSorteado < pesos[0] + pesos[1]) {
             jogador.coletarMadeira();
-        } else if (valorSoteado < pesos[0] + pesos[1] + pesos[2]) {
+        } else if (valorSorteado < pesos[0] + pesos[1] + pesos[2]) {
             jogador.construir();
         }
     }
